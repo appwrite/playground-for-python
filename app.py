@@ -51,3 +51,18 @@ async def list_collection():
     collection = response.collections[0]
     print(collection)
 
+
+async def add_doc():
+    database = Database(client)
+    print_green("Running Add Document API")
+    response = await database.create_document(
+        collectionId,
+        {
+            'name': "Spider Man",
+            'release_year': 1920,
+        },
+        ['*'],
+        ['*']
+    )
+    print(response)
+
