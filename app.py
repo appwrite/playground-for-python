@@ -1,8 +1,9 @@
 from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
+from appwrite.services.storage import Storage
 
-# To print green colored output.
+# Helper method to print green colored output.
 def print_green(prt):
     print("\033[32;1m"+str(prt)+"\033[0m")
 
@@ -72,4 +73,14 @@ async def list_doc():
     print_green("Running List Document API")
     response = await database.list_documents(collectionId)
     print(response)
+
+
+async def upload_file():
+    storage = Storage(client)
+    print_green("Running Upload File API")
+    response = await storage.create_file(
+        open("./nature.jpg", 'rb'),
+        [],
+        []
+    )
 
