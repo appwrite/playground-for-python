@@ -39,3 +39,11 @@ async def createCollection():
     collectionId = response.id
     print(response)
 
+
+async def listCollection():
+    database = Database(client)
+    print("Running List Collection API")
+    response = await database.list_collections()
+    collection = response.collections[0]
+    print(collection)
+
