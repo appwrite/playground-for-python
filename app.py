@@ -24,6 +24,15 @@ client.set_key(API_KEY)
 collectionId = None
 userId = None
 
+# API Calls
+#   - api.create_collection
+#   - api.list_collection
+#   - api.add_doc
+#   - api.list_doc
+#   - api.upload_file
+#   - api.create_user
+#   - api.list_user
+
 # List of API definations
 
 async def create_collection():
