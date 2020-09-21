@@ -3,6 +3,8 @@ from appwrite.services.users import Users
 from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 
+import asyncio
+
 # Helper method to print green colored output.
 def print_green(prt):
     print("\033[32;1m"+str(prt)+"\033[0m")
@@ -100,3 +102,22 @@ async def list_user():
     response = await users.list()
     print(response)
 
+
+async def run_all_tasks():
+
+    await asyncio.wait([
+        await create_collection(),
+        await list_collection(),
+        await add_doc(),
+        await list_doc(),
+        await upload_file(),
+        await create_user(),
+        await list_user(),
+    ])
+
+
+if __name__ == "__main__":
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run_all_tasks())
+    loop.close()
