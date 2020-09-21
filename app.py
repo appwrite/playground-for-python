@@ -66,3 +66,10 @@ async def add_doc():
     )
     print(response)
 
+
+async def list_doc():
+    database = Database(client)
+    print_green("Running List Document API")
+    response = await database.list_documents(collectionId)
+    print(response)
+
