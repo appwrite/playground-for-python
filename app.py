@@ -2,6 +2,10 @@ from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
 
+# To print green colored output.
+def print_green(prt):
+    print("\033[32;1m"+str(prt)+"\033[0m")
+
 # Config
 
 ENDPOINT = 'https://localhost/v1'
@@ -22,9 +26,9 @@ userId = None
 
 # List of API definations
 
-async def createCollection():
+async def create_collection():
     database = Database(client)
-    print("Running Create Collection API")
+    print_green("Running Create Collection API")
     response = await database.create_collection(
         'Movies',
         ['*'],
@@ -40,9 +44,9 @@ async def createCollection():
     print(response)
 
 
-async def listCollection():
+async def list_collection():
     database = Database(client)
-    print("Running List Collection API")
+    print_green("Running List Collection API")
     response = await database.list_collections()
     collection = response.collections[0]
     print(collection)
