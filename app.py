@@ -19,9 +19,6 @@ client.set_endpoint(ENDPOINT)
 client.set_project(PROJECT_ID)
 client.set_key(API_KEY)
 
-users = Users(client)
-result = users.create('test@test.com', 'test@123')
-
 collectionId = None
 userId = None
 
@@ -83,4 +80,16 @@ async def upload_file():
         [],
         []
     )
+
+
+async def create_user(email, password, name):
+    users = Users(client)
+    print_green("Running Create User API")
+    response = await users.create(
+        email,
+        password,
+        name
+    )
+    userId = response.id
+    print(response)
 
