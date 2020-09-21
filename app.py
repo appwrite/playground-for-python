@@ -93,3 +93,10 @@ async def create_user(email, password, name):
     userId = response.id
     print(response)
 
+
+async def list_user():
+    users = Users(client)
+    print_green("Running List User API")
+    response = await users.list()
+    print(response)
+
