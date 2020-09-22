@@ -12,8 +12,8 @@ def print_green(prt):
 # Config
 
 ENDPOINT = 'https://localhost/v1'
-PROJECT_ID = '5f69ba7d23216'
-API_KEY = 'e8648fb26ea100a1ddca908adb2802a73081243621f7a228435e4b84b8aa1f25a9355af571e0c9c29c8b4840e129aa4160ea43194bd6620fc4520828becd243be25b332cd91c68d1a21a5171a079828e006321060b416189ec7814d0df2d4eb961f39b2ba5de51e6bd69ab8ccf1722f97e9aca86596b0d65247720917411b83e'
+PROJECT_ID = '<Project ID>'
+API_KEY = '<Secret API Key>'
 
 client = Client()
 
