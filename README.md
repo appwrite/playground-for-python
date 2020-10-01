@@ -24,6 +24,6 @@ Guido van Rossum
 
 [9] print( a // b ) **floor division program**
 
-[10] print('Brian\'s mother: He\'s not an angel. He\'s a very naughty boy!') **if using same as apostrophe while printing**
+[10] print('Brian\'s mother: He\'s not an angel. He\'s a very naughty boy!') **if using same apostrophe while printing**
 
 [11] print('One \nTwo \nThree') **to change the lines**
