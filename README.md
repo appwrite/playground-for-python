@@ -6,9 +6,9 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 
 ## System Requirements
 * A system with Python3 installed.
-* You have readily available AppWrite running instance (localhost in most cases).
-* Create a project in AppWrite instance using console.
-* Generate a secret key in the AppWrite instance using console.
+* You have readily available Appwrite running instance (localhost in most cases).
+* Create a project in Appwrite instance using console.
+* Generate a secret key in the Appwrite instance using console.
 
 ### Installation
 1. Clone this repository.
