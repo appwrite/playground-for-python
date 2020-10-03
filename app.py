@@ -4,6 +4,7 @@ from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 
 import datetime
+import re
 
 # Helper method to print green colored output.
 def print_green(prt):
@@ -92,10 +93,22 @@ def upload_file():
         [],
         []
     )
+  
+
+regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+def check(email):  
+    if(re.search(regex,email)):  
+        return True  
+    else:  
+        return False 
 
 
 def create_user(email, password, name):
     global userId
+    if check(email) == True:
+        pass
+    else:
+        raise ValueError ("You have entered incorrect format of E-Mail")
     users = Users(client)
     print_green("Running Create User API")
     response = users.create(
