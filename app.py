@@ -112,6 +112,7 @@ def delete_file():
     result = storage.list_files()
     first_file_id = result['files'][0]['$id']
     response = storage.delete_file(first_file_id)
+    print(response)
 
 
 def create_user(email, password, name):

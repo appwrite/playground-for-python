@@ -26,6 +26,8 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 * Add Document
 * List Documents
 * Upload File
+* List Files
+* Delete File
 * Create User
 * List User
 
