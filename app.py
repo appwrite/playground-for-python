@@ -30,6 +30,8 @@ userId = None
 #   - api.add_doc
 #   - api.list_doc
 #   - api.upload_file
+#   - api.list_files
+#   - api.delete_file
 #   - api.create_user
 #   - api.list_user
 
@@ -94,6 +96,25 @@ def upload_file():
     )
 
 
+def list_files():
+    storage = Storage(client)
+    print_green("Running List Files API")
+    result = storage.list_files()
+    file_count = result['sum']
+    print("Total number of files {} ".format(file_count))
+    files = result['files']
+    print(files)
+
+
+def delete_file():
+    storage = Storage(client)
+    print_green("Running Delete File API")
+    result = storage.list_files()
+    first_file_id = result['files'][0]['$id']
+    response = storage.delete_file(first_file_id)
+    print(response)
+
+
 def create_user(email, password, name):
     global userId
     users = Users(client)
@@ -123,6 +144,8 @@ def run_all_tasks():
     add_doc()
     list_doc()
     upload_file()
+    list_files()
+    delete_file()
     create_user(
         name + '@test.com',
         name + '@123',
