@@ -7,10 +7,13 @@ import datetime
 import random
 
 # Helper method to print green colored output.
+
+
 def print_green(prt):
     print("\033[32;1m"+str(prt)+"\033[0m")
 
 # Config
+
 
 ENDPOINT = 'https://localhost/v1'
 PROJECT_ID = '< Project id >'
@@ -37,6 +40,7 @@ userId = None
 #   - api.list_user
 
 # List of API definations
+
 
 def create_collection():
     global collectionId
