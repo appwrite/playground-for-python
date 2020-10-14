@@ -4,7 +4,7 @@ from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 import warnings
 import datetime
-import random
+import uuid
 
 # Helper method to print green colored output.
 
@@ -152,9 +152,9 @@ def run_all_tasks():
     list_files()
     delete_file()
     create_user(
-        str(random.random()) + '@test.com',
-        str(random.random()) + '@123',
-        str(random.random())
+        str(uuid.uuid1()) + '@test.com',
+        str(uuid.uuid1()) + '@123',
+        str(uuid.uuid1())
     )
     list_user()
 
