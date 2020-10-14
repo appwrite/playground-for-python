@@ -143,7 +143,9 @@ def list_user():
 def run_all_tasks():
 
     name = str(datetime.datetime.now()).split()[0]
-
+    id = str(uuid.uuid1())
+    
+    
     create_collection()
     list_collection()
     add_doc()
@@ -152,9 +154,9 @@ def run_all_tasks():
     list_files()
     delete_file()
     create_user(
-        str(uuid.uuid1()) + '@test.com',
-        str(uuid.uuid1()) + '@123',
-        str(uuid.uuid1())
+        id + '@test.com',
+        id + '@123',
+        id
     )
     list_user()
 
