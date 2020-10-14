@@ -2,8 +2,9 @@ from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
 from appwrite.services.storage import Storage
-
+import warnings
 import datetime
+import random
 
 # Helper method to print green colored output.
 def print_green(prt):
@@ -12,8 +13,8 @@ def print_green(prt):
 # Config
 
 ENDPOINT = 'https://localhost/v1'
-PROJECT_ID = '<Project ID>'
-API_KEY = '<Secret API Key>'
+PROJECT_ID = '< Project id >'
+API_KEY = '< Api key >'
 
 client = Client()
 
@@ -147,14 +148,14 @@ def run_all_tasks():
     list_files()
     delete_file()
     create_user(
-        name + '@test.com',
-        name + '@123',
-        name
+        str(random.random()) + '@test.com',
+        str(random.random()) + '@123',
+        str(random.random())
     )
     list_user()
 
 
 if __name__ == "__main__":
-
+    warnings.filterwarnings("ignore")
     run_all_tasks()
     print_green("Successfully Ran playground!")
