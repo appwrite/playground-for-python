@@ -16,7 +16,7 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 3. Open the app.py file found in the root of the cloned repository.
 4. Copy the project_id, endpoint, secret key from your Appwrite Console.
 4. Update project_id, endpoint, secret key by copied from the console in app.py file where stated.
-5. Install dependencies using pip `pip install appwrite`
+5. Install dependencies using pip `pip install appwrite` using Command Prompt or Powershell
 5. Execute the command `python app.py`
 6. You will see the JSON response in the console.
 
