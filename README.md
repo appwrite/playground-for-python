@@ -2,7 +2,7 @@
 
 Appwrite playground is a simple way to explore the Appwrite API & Appwrite Python SDK. Use the source code of this repository to learn how to use the different Appwrite Python SDK features.
 
-**Work in progress**
+**Work in progress !!**
 
 ## System Requirements
 * A system with Python3 installed.
