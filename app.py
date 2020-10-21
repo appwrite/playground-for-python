@@ -4,7 +4,6 @@ from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 
 import datetime
-import json
 
 # Helper method to print green colored output.
 def print_green(prt):
@@ -56,7 +55,7 @@ def create_collection():
         ]
     )
     collectionId = response['$id']
-    print(json.loads(response))
+    print(response)
 
 
 def list_collection():
@@ -64,7 +63,7 @@ def list_collection():
     print_green("Running List Collection API")
     response = database.list_collections()
     collection = response['collections'][0]
-    print(json.loads(collection))
+    print(collection)
 
 
 def add_doc():
@@ -79,14 +78,14 @@ def add_doc():
         ['*'],
         ['*']
     )
-    print(json.loads(response))
+    print(response)
 
 
 def list_doc():
     database = Database(client)
     print_green("Running List Document API")
     response = database.list_documents(collectionId)
-    print(json.loads(response))
+    print(response)
 
 
 def upload_file():
@@ -106,7 +105,7 @@ def list_files():
     file_count = result['sum']
     print("Total number of files {} ".format(file_count))
     files = result['files']
-    print(json.loads(files))
+    print(files)
 
 
 def delete_file():
@@ -115,7 +114,7 @@ def delete_file():
     result = storage.list_files()
     first_file_id = result['files'][0]['$id']
     response = storage.delete_file(first_file_id)
-    print(json.loads(response))
+    print(response)
 
 
 def create_user(email, password, name):
@@ -128,14 +127,14 @@ def create_user(email, password, name):
         name
     )
     userId = response['$id']
-    print(json.loads(response))
+    print(response)
 
 
 def list_user():
     users = Users(client)
     print_green("Running List User API")
     response = users.list()
-    print(json.loads(response))
+    print(response)
 
 
 def run_all_tasks():
