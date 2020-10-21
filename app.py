@@ -157,4 +157,4 @@ def run_all_tasks():
 if __name__ == "__main__":
 
     run_all_tasks()
-    print_green("Successfully Ran playground!")
+    print_green("Successfully ran playground!")
