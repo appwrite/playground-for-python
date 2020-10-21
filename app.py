@@ -4,6 +4,7 @@ from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 
 import datetime
+import json
 
 # Helper method to print green colored output.
 def print_green(prt):
@@ -11,6 +12,8 @@ def print_green(prt):
 
 # Config
 
+# Read the docs at https://appwrite.io/docs to get more information
+# about API keys and Project IDs
 ENDPOINT = 'https://localhost/v1'
 PROJECT_ID = '<Project ID>'
 API_KEY = '<Secret API Key>'
@@ -53,7 +56,7 @@ def create_collection():
         ]
     )
     collectionId = response['$id']
-    print(response)
+    print(json.loads(response))
 
 
 def list_collection():
@@ -61,7 +64,7 @@ def list_collection():
     print_green("Running List Collection API")
     response = database.list_collections()
     collection = response['collections'][0]
-    print(collection)
+    print(json.loads(collection))
 
 
 def add_doc():
@@ -76,14 +79,14 @@ def add_doc():
         ['*'],
         ['*']
     )
-    print(response)
+    print(json.loads(response))
 
 
 def list_doc():
     database = Database(client)
     print_green("Running List Document API")
     response = database.list_documents(collectionId)
-    print(response)
+    print(json.loads(response))
 
 
 def upload_file():
@@ -103,7 +106,7 @@ def list_files():
     file_count = result['sum']
     print("Total number of files {} ".format(file_count))
     files = result['files']
-    print(files)
+    print(json.loads(files))
 
 
 def delete_file():
@@ -112,7 +115,7 @@ def delete_file():
     result = storage.list_files()
     first_file_id = result['files'][0]['$id']
     response = storage.delete_file(first_file_id)
-    print(response)
+    print(json.loads(response))
 
 
 def create_user(email, password, name):
@@ -125,14 +128,14 @@ def create_user(email, password, name):
         name
     )
     userId = response['$id']
-    print(response)
+    print(json.loads(response))
 
 
 def list_user():
     users = Users(client)
     print_green("Running List User API")
     response = users.list()
-    print(response)
+    print(json.loads(response))
 
 
 def run_all_tasks():
