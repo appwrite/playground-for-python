@@ -138,8 +138,9 @@ def list_user():
 
 
 def run_all_tasks():
-
-    name = str(datetime.datetime.now()).split()[0]
+    
+    curr_dt_time = str(datetime.datetime.now())
+    name = ''.join(i for i in curr_dt_time if i not in [" ", ":", "-", "."])
 
     create_collection()
     list_collection()
