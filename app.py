@@ -35,7 +35,7 @@ userId = None
 #   - api.create_user
 #   - api.list_user
 
-# List of API definations
+# List of API definitions
 
 def create_collection():
     global collectionId
