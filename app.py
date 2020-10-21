@@ -11,6 +11,8 @@ def print_green(prt):
 
 # Config
 
+# Read the docs at https://appwrite.io/docs to get more information
+# about API keys and Project IDs
 ENDPOINT = 'https://localhost/v1'
 PROJECT_ID = '<Project ID>'
 API_KEY = '<Secret API Key>'
@@ -35,7 +37,7 @@ userId = None
 #   - api.create_user
 #   - api.list_user
 
-# List of API definations
+# List of API definitions
 
 def create_collection():
     global collectionId
@@ -157,4 +159,4 @@ def run_all_tasks():
 if __name__ == "__main__":
 
     run_all_tasks()
-    print_green("Successfully Ran playground!")
+    print_green("Successfully ran playground!")
