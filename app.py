@@ -2,7 +2,7 @@ from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
 from appwrite.services.storage import Storage
-
+import sys
 import datetime
 
 # Helper method to print green colored output.
@@ -137,10 +137,7 @@ def list_user():
     print(response)
 
 
-def run_all_tasks():
-
-    name = str(datetime.datetime.now()).split()[0]
-
+def run_all_tasks(email, password, name):
     create_collection()
     list_collection()
     add_doc()
@@ -149,8 +146,8 @@ def run_all_tasks():
     list_files()
     delete_file()
     create_user(
-        name + '@test.com',
-        name + '@123',
+        email,
+        password,
         name
     )
     list_user()
@@ -158,5 +155,5 @@ def run_all_tasks():
 
 if __name__ == "__main__":
 
-    run_all_tasks()
+    run_all_tasks(sys.argv[1], sys.argv[2], sys.argv[3])
     print_green("Successfully ran playground!")
