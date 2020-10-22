@@ -154,6 +154,11 @@ def run_all_tasks(email, password, name):
 
 
 if __name__ == "__main__":
-
-    run_all_tasks(sys.argv[1], sys.argv[2], sys.argv[3])
+    if sys.argv:
+        run_all_tasks(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        name = str(datetime.datetime.now()).split()[0]
+        run_all_tasks(name + '@test.com',
+                      name + '@123',
+                      name)
     print_green("Successfully ran playground!")
