@@ -1,9 +1,13 @@
+import urllib3
+
 from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 
 import datetime
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Helper method to print green colored output.
 def print_green(prt):
