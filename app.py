@@ -42,7 +42,7 @@ userId = None
 #   - api.delete_file
 #   - api.create_user
 #   - api.list_user
-#   - api.test_account_with_jwt
+#   - api.get_account # Work only with JWT
 
 # List of API definitions
 
@@ -73,7 +73,7 @@ def list_collection():
     print(collection)
 
 
-def test_account_with_jwt():
+def get_account():
     account = Account(client)
     print_green("Running Get Account API");
     response = account.get()
@@ -168,6 +168,7 @@ def run_all_tasks():
         name
     )
     list_user()
+    # get_account() # works only with JWT
 
 
 if __name__ == "__main__":
