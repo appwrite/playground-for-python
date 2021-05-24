@@ -4,6 +4,7 @@ from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
 from appwrite.services.storage import Storage
+from appwrite.services.account import Account
 
 import datetime
 
@@ -26,6 +27,7 @@ client = Client()
 client.set_endpoint(ENDPOINT)
 client.set_project(PROJECT_ID)
 client.set_key(API_KEY)
+# client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
 collectionId = None
 userId = None
@@ -40,6 +42,7 @@ userId = None
 #   - api.delete_file
 #   - api.create_user
 #   - api.list_user
+#   - api.get_account # Work only with JWT
 
 # List of API definitions
 
@@ -68,6 +71,13 @@ def list_collection():
     response = database.list_collections()
     collection = response['collections'][0]
     print(collection)
+
+
+def get_account():
+    account = Account(client)
+    print_green("Running Get Account API");
+    response = account.get()
+    print(response)
 
 
 def add_doc():
@@ -158,6 +168,7 @@ def run_all_tasks():
         name
     )
     list_user()
+    # get_account() # works only with JWT
 
 
 if __name__ == "__main__":
