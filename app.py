@@ -86,6 +86,20 @@ def add_doc():
     response = database.create_document(
         collectionId,
         {
+            'name': "Iron Man",
+            'release_year': 2008,
+        },
+        ['*'],
+        ['*']
+    )
+    print(response)
+
+def add_doc2():
+    database = Database(client)
+    print_green("Running Add Document API")
+    response = database.create_document(
+        collectionId,
+        {
             'name': "Spider Man",
             'release_year': 1920,
         },
@@ -174,4 +188,4 @@ def run_all_tasks():
 if __name__ == "__main__":
 
     run_all_tasks()
-    print_green("Successfully ran playground!")
+    print_green("Successfully compiled playground!")
