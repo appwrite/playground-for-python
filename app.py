@@ -14,6 +14,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 def print_green(prt):
     print("\033[32;1m"+str(prt)+"\033[0m")
 
+    
 # Config
 
 # Read the docs at https://appwrite.io/docs to get more information
@@ -29,8 +30,10 @@ client.set_project(PROJECT_ID)
 client.set_key(API_KEY)
 # client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
+
 collectionId = None
 userId = None
+
 
 # API Calls
 #   - api.create_collection
@@ -80,17 +83,17 @@ def get_account():
     print(response)
 
 
-def add_doc():
-    database = Database(client)
-    print_green("Running Add Document API")
-    response = database.create_document(
-        collectionId,
-        {
-            'name': "Spider Man",
-            'release_year': 1920,
-        },
-        ['*'],
-        ['*']
+def  add_doc():
+     database = Database(client)
+     print_green("Running Add Document API")
+     response = database.create_document(
+         collectionId,
+         {
+             'name': "Spider Man",
+             'release_year': 1920,
+         }
+         ['*'],
+         ['*']
     )
     print(response)
 
@@ -174,4 +177,4 @@ def run_all_tasks():
 if __name__ == "__main__":
 
     run_all_tasks()
-    print_green("Successfully ran playground!")
+    print_green("Successfully Ran playground!")
