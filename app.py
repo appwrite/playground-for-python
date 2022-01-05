@@ -107,8 +107,8 @@ def add_doc():
             'name': "Spider Man",
             'release_year': 1920,
         },
-        ['*'],
-        ['*']
+        ['role:all'],
+        ['role:all']
     )
     print(response)
 
