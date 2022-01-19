@@ -51,17 +51,28 @@ def create_collection():
     database = Database(client)
     print_green("Running Create Collection API")
     response = database.create_collection(
+        'movies',
         'Movies',
-        ['*'],
-        ['*'],
-        [
-            {'label': "Name", 'key': "name", 'type': "text",
-             'default': "Empty Name", 'required': True, 'array': False},
-            {'label': 'release_year', 'key': 'release_year', 'type': 'numeric',
-             'default': 1970, 'required': True, 'array': False}
-        ]
+        'document'
+        ['role:all'],
+        ['role:all'],
     )
     collectionId = response['$id']
+    print(response)
+    response = database.create_string_attribute(
+        collectionId,
+        'name',
+        255,
+        true,
+    )
+    print(response)
+    response = database.create_integer_attribute(
+        collectionId,
+        'release_year',
+        0,
+        9999,
+        true
+    )
     print(response)
 
 
@@ -85,12 +96,13 @@ def add_doc():
     print_green("Running Add Document API")
     response = database.create_document(
         collectionId,
+        'unique()',
         {
             'name': "Spider Man",
             'release_year': 1920,
         },
-        ['*'],
-        ['*']
+        ['role:all'],
+        ['role:all']
     )
     print(response)
 
@@ -106,6 +118,7 @@ def upload_file():
     storage = Storage(client)
     print_green("Running Upload File API")
     response = storage.create_file(
+        'unique()',
         open("./nature.jpg", 'rb'),
         [],
         []
@@ -136,6 +149,7 @@ def create_user(email, password, name):
     users = Users(client)
     print_green("Running Create User API")
     response = users.create(
+        'unique()',
         email,
         password,
         name
