@@ -59,12 +59,6 @@ def create_collection():
     )
     collectionId = response['$id']
     print(response)
-    [
-            {'label': "Name", 'key': "name", 'type': "text",
-             'default': "Empty Name", 'required': True, 'array': False},
-            {'label': 'release_year', 'key': 'release_year', 'type': 'numeric',
-             'default': 1970, 'required': True, 'array': False}
-        ]
     response = database.create_string_attribute(
         collectionId,
         'name',
