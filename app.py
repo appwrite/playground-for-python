@@ -31,6 +31,8 @@ client.set_key(API_KEY)
 
 collectionId = None
 userId = None
+bucketId = None
+fileId = None
 
 # API Calls
 #   - api.create_collection
@@ -53,7 +55,7 @@ def create_collection():
     response = database.create_collection(
         'movies',
         'Movies',
-        'document'
+        'document',
         ['role:all'],
         ['role:all'],
     )
@@ -63,15 +65,15 @@ def create_collection():
         collectionId,
         'name',
         255,
-        true,
+        True,
     )
     print(response)
     response = database.create_integer_attribute(
         collectionId,
         'release_year',
+        True,
         0,
         9999,
-        true
     )
     print(response)
 
@@ -113,22 +115,43 @@ def list_doc():
     response = database.list_documents(collectionId)
     print(response)
 
+def delete_collection():
+    database = Database(client)
+    print_green("Running Delete Collection API")
+    response = database.delete_collection(collectionId)
+    print(response)
+
+
+def create_bucket():
+    global bucketId
+    storage = Storage(client)
+    print_green("Running Create Bucket API")
+    response = storage.create_bucket(
+        'unique()',
+        'awesome bucket',
+        'file'
+    )
+    bucketId = response['$id']
+    print(response)
 
 def upload_file():
     storage = Storage(client)
     print_green("Running Upload File API")
     response = storage.create_file(
+        bucketId,
         'unique()',
-        open("./nature.jpg", 'rb'),
+        "./nature.jpg",
         [],
         []
     )
+    file_id = response['$id']
+    print(response)
 
 
 def list_files():
     storage = Storage(client)
     print_green("Running List Files API")
-    result = storage.list_files()
+    result = storage.list_files(bucketId)
     file_count = result['sum']
     print("Total number of files {} ".format(file_count))
     files = result['files']
@@ -138,9 +161,15 @@ def list_files():
 def delete_file():
     storage = Storage(client)
     print_green("Running Delete File API")
-    result = storage.list_files()
+    result = storage.list_files(bucketId)
     first_file_id = result['files'][0]['$id']
-    response = storage.delete_file(first_file_id)
+    response = storage.delete_file(bucketId, first_file_id)
+    print(response)
+
+def delete_bucket():
+    storage = Storage(client)
+    print_green("Running Delete Bucket API")
+    response = storage.delete_bucket(bucketId)
     print(response)
 
 
@@ -173,9 +202,12 @@ def run_all_tasks():
     list_collection()
     add_doc()
     list_doc()
+    delete_collection()
+    create_bucket()
     upload_file()
     list_files()
     delete_file()
+    delete_bucket()
     create_user(
         name + '@test.com',
         name + '@123',
