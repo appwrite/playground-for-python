@@ -1,0 +1,2 @@
+# For development SDK: git+https://github.com/appwrite/sdk-for-python@dev
+git+https://github.com/appwrite/sdk-for-python@master

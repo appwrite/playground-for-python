@@ -1,14 +1,13 @@
-import urllib3
+from time import sleep
+from random import randrange
+from sys import maxsize
 
 from appwrite.client import Client
 from appwrite.services.users import Users
 from appwrite.services.database import Database
 from appwrite.services.storage import Storage
 from appwrite.services.account import Account
-
-import datetime
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from appwrite.services.functions import Functions
 
 # Helper method to print green colored output.
 def print_green(prt):
@@ -27,15 +26,22 @@ client = Client()
 client.set_endpoint(ENDPOINT)
 client.set_project(PROJECT_ID)
 client.set_key(API_KEY)
+client.set_self_signed()
 # client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
-collectionId = None
-userId = None
-bucketId = None
-fileId = None
+collection_id = None
+user_id = None
+bucket_id = None
+file_id = None
 
 # API Calls
 #   - api.create_collection
+#       - api.create_string_attribute
+#       - api.create_integer_attribute
+#       - api.create_float_attribute
+#       - api.create_boolean_attribute
+#       - api.create_email_attribute
+#       - api.create_index
 #   - api.list_collection
 #   - api.add_doc
 #   - api.list_doc
@@ -45,11 +51,13 @@ fileId = None
 #   - api.create_user
 #   - api.list_user
 #   - api.get_account # Work only with JWT
+#   - api.create_function
+#   - api.list_function
+#   - api.delete_function
 
 # List of API definitions
 
 def create_collection():
-    global collectionId
     database = Database(client)
     print_green("Running Create Collection API")
     response = database.create_collection(
@@ -57,23 +65,53 @@ def create_collection():
         'Movies',
         'document',
         ['role:all'],
-        ['role:all'],
+        ['role:all']
     )
-    collectionId = response['$id']
+    global collection_id
+    collection_id = response['$id']
     print(response)
     response = database.create_string_attribute(
-        collectionId,
-        'name',
-        255,
-        True,
+        collection_id,
+        key='name',
+        size=255,
+        required=True,
     )
     print(response)
     response = database.create_integer_attribute(
-        collectionId,
-        'release_year',
-        True,
-        0,
-        9999,
+        collection_id,
+        key='release_year',
+        required=True,
+        min=0,
+        max=9999
+    )
+    print(response)
+    response = database.create_float_attribute(
+        collection_id,
+        key='rating',
+        required=True,
+        min=0.0,
+        max=99.99
+    )
+    print(response)
+    response = database.create_boolean_attribute(
+        collection_id,
+        key='kids',
+        required=True
+    )
+    print(response)
+    response = database.create_email_attribute(
+        collection_id,
+        key='email',
+        required=False,
+        default=""
+    )
+    print(response)
+    sleep(2)
+    response = database.create_index(
+        collection_id,
+        key='name_email_idx',
+        type="fulltext",
+        attributes=['name', 'email']
     )
     print(response)
 
@@ -95,35 +133,36 @@ def get_account():
 
 def add_doc():
     database = Database(client)
+    global collection_id
     print_green("Running Add Document API")
     response = database.create_document(
-        collectionId,
+        collection_id,
         'unique()',
         {
             'name': "Spider Man",
             'release_year': 1920,
+            'rating': 98.5,
+            'kids': False
         },
         ['role:all'],
         ['role:all']
     )
     print(response)
 
-
 def list_doc():
     database = Database(client)
     print_green("Running List Document API")
-    response = database.list_documents(collectionId)
+    response = database.list_documents(collection_id)
     print(response)
 
 def delete_collection():
     database = Database(client)
     print_green("Running Delete Collection API")
-    response = database.delete_collection(collectionId)
+    response = database.delete_collection(collection_id)
     print(response)
 
-
 def create_bucket():
-    global bucketId
+    global bucket_id
     storage = Storage(client)
     print_green("Running Create Bucket API")
     response = storage.create_bucket(
@@ -131,61 +170,55 @@ def create_bucket():
         'awesome bucket',
         'file'
     )
-    bucketId = response['$id']
+    bucket_id = response['$id']
     print(response)
 
 def upload_file():
     storage = Storage(client)
     print_green("Running Upload File API")
     response = storage.create_file(
-        bucketId,
+        bucket_id,
         'unique()',
-        "./nature.jpg",
-        [],
-        []
+        "./resources/nature.jpg",
     )
-    file_id = response['$id']
     print(response)
 
 
 def list_files():
     storage = Storage(client)
     print_green("Running List Files API")
-    result = storage.list_files(bucketId)
-    file_count = result['sum']
+    result = storage.list_files(bucket_id)
+    file_count = result['total']
     print("Total number of files {} ".format(file_count))
     files = result['files']
     print(files)
 
-
 def delete_file():
     storage = Storage(client)
     print_green("Running Delete File API")
-    result = storage.list_files(bucketId)
+    result = storage.list_files(bucket_id)
     first_file_id = result['files'][0]['$id']
-    response = storage.delete_file(bucketId, first_file_id)
+    response = storage.delete_file(bucket_id, first_file_id)
     print(response)
 
 def delete_bucket():
     storage = Storage(client)
     print_green("Running Delete Bucket API")
-    response = storage.delete_bucket(bucketId)
+    response = storage.delete_bucket(bucket_id)
     print(response)
 
-
-def create_user(email, password, name):
-    global userId
+def create_user():
     users = Users(client)
+    name = str(randrange(1, maxsize))
     print_green("Running Create User API")
     response = users.create(
         'unique()',
-        email,
-        password,
+        f'{name}@test.com',
+        f'{name}@123',
         name
     )
-    userId = response['$id']
+    user_id = response['$id']
     print(response)
-
 
 def list_user():
     users = Users(client)
@@ -193,11 +226,32 @@ def list_user():
     response = users.list()
     print(response)
 
+def create_function():
+    global function_id
+    functions = Functions(client)
+    print_green("Running Create Function API")
+    response = functions.create(
+        'unique()',
+        'Test Function',
+        [],
+        'python-3.10',
+    )
+    function_id = response['$id']
+    print(response)
+
+def list_function():
+    functions = Functions(client)
+    print_green("Running List Function API")
+    response = functions.list()
+    print(response)
+
+def delete_function():
+    functions = Functions(client)
+    print_green("Running Delete Function API")
+    response = functions.delete(function_id)
+    print(response)
 
 def run_all_tasks():
-
-    name = str(datetime.datetime.now()).split()[0]
-
     create_collection()
     list_collection()
     add_doc()
@@ -208,16 +262,13 @@ def run_all_tasks():
     list_files()
     delete_file()
     delete_bucket()
-    create_user(
-        name + '@test.com',
-        name + '@123',
-        name
-    )
+    create_user()
     list_user()
+    create_function()
+    list_function()
+    delete_function()
     # get_account() # works only with JWT
 
-
 if __name__ == "__main__":
-
     run_all_tasks()
     print_green("Successfully ran playground!")
