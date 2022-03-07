@@ -14,7 +14,7 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 1. Clone this repository.
 2. `cd` into to repository.
 3. Open the playground.py file found in the root of the cloned repository.
-4. Update project_id, endpoint, secret key by copied from the console in app.py file where stated.
+4. Copy Project ID, endpoint and API key from Appwrite console into `playground.py`
 5. Run the playground:
     Python:
         - Install dependencies using pip `pip install -r requirements.txt`
