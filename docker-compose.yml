@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  playground-for-python:
+    build: .
+    volumes:
+      - "./:/app"
+    working_dir: /app
+    command: "python /app/playground.py"
