@@ -13,8 +13,6 @@ from appwrite.services.functions import Functions
 def p(info):
     print("\033[32;1m"+str(info)+"\033[0m")
 
-# Config
-
 # Read the docs at https://appwrite.io/docs to get more information
 # about API keys and Project IDs
 client = Client()
@@ -25,35 +23,14 @@ client.set_self_signed()
 # client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
 collection_id = None
+document_id = None
 user_id = None
 bucket_id = None
 file_id = None
 document_id = None
 
-# API Calls
-#   - api.create_collection
-#       - api.create_string_attribute
-#       - api.create_integer_attribute
-#       - api.create_float_attribute
-#       - api.create_boolean_attribute
-#       - api.create_email_attribute
-#       - api.create_index
-#   - api.list_collection
-#   - api.add_doc
-#   - api.list_doc
-#   - api.upload_file
-#   - api.list_files
-#   - api.delete_file
-#   - api.create_user
-#   - api.list_user
-#   - api.get_account # Work only with JWT
-#   - api.create_function
-#   - api.list_function
-#   - api.delete_function
-
-# List of API definitions
-
 def create_collection():
+    global collection_id
     database = Database(client)
     p("Running Create Collection API")
     response = database.create_collection(
@@ -63,7 +40,6 @@ def create_collection():
         read=['role:all'],
         write=['role:all']
     )
-    global collection_id
     collection_id = response['$id']
     print(response)
     response = database.create_string_attribute(
@@ -112,7 +88,7 @@ def create_collection():
     )
     print(response)
 
-def list_collection():
+def list_collections():
     database = Database(client)
     p("Running List Collection API")
     response = database.list_collections()
@@ -145,6 +121,7 @@ def add_doc():
     print(response)
 
 def list_doc():
+    global collection_id
     database = Database(client)
     p("Running List Document API")
     response = database.list_documents(collection_id)
@@ -193,13 +170,11 @@ def upload_file():
 
 
 def list_files():
+    global bucket_id
     storage = Storage(client)
     p("Running List Files API")
-    result = storage.list_files(bucket_id)
-    file_count = result['total']
-    print("Total number of files {} ".format(file_count))
-    files = result['files']
-    print(files)
+    response = storage.list_files(bucket_id)
+    print(response)
 
 def delete_file():
     global file_id
@@ -268,27 +243,31 @@ def delete_function():
     print(response)
 
 def run_all_tasks():
+
+    # Database
     create_collection()
-    list_collection()
+    list_collections()
     add_doc()
     list_doc()
     delete_doc()
     delete_collection()
 
+    # Storage
     create_bucket()
     upload_file()
     list_files()
     delete_file()
     delete_bucket()
 
+    # Users
     create_user()
     list_user()
     delete_user()
 
+    # Functions
     create_function()
     list_function()
     delete_function()
-    # get_account() # works only with JWT
 
 if __name__ == "__main__":
     run_all_tasks()

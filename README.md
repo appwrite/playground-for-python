@@ -16,30 +16,38 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 3. Open the playground.py file found in the root of the cloned repository.
 4. Update project_id, endpoint, secret key by copied from the console in app.py file where stated.
 5. Run the playground:
-    - Python
+    Python:
         - Install dependencies using pip `pip install -r requirements.txt`
         - Execute the command `python playground.py`
-    - Docker
+    Docker:
         - Execute the command `docker compose up`
 6. You will see the JSON response in the console.
 
-### API Covered in Playground.
-* Create Collection
-* List Collection
-* Add Document
-* List Documents
-* Delete Document
-* Delete Collection
-* Create Bucket
-* Upload File
-* List Files
-* Delete File
-* Create User
-* List User
-* Delete User
-* Create Function
-* List Functions
-* Delete Function
+### API's Covered
+
+- Databse
+    * [Create Collection](./lib/playground.rb#L53)
+    * [List Collection](./lib/playground.rb#L111)
+    * [Add Document](./lib/playground.rb#L129)
+    * [List Documents](./lib/playground.rb#L148)
+    * [Delete Document](./lib/playground.rb#L157)
+    * [Delete Collection](./lib/playground.rb#L120)
+
+- Storage
+    * [Create Bucket](./lib/playground.rb#L169)
+    * [Upload File](./lib/playground.rb#L183)
+    * [List Files](./lib/playground.rb#L198)
+    * [Delete File](./lib/playground.rb#L207)
+
+- Users
+    * [Create User](./lib/playground.rb#L13)
+    * [List User](./lib/playground.rb#L29)
+    * [Delete User](./lib/playground.rb#L38)
+
+- Functions
+    * [Create Function](./lib/playground.rb#L229)
+    * [List Functions](./lib/playground.rb#L244)
+    * [Delete Function](./lib/playground.rb#L253)
 
 ## Contributing
 
