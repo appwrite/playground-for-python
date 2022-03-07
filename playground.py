@@ -260,6 +260,7 @@ def run_all_tasks():
     delete_bucket()
 
     # Users
+    # get_account() # Use this only with JWT
     create_user()
     list_user()
     delete_user()
