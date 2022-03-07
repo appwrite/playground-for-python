@@ -26,28 +26,30 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 ### API's Covered
 
 - Databse
-    * [Create Collection](./lib/playground.rb#L53)
-    * [List Collection](./lib/playground.rb#L111)
-    * [Add Document](./lib/playground.rb#L129)
-    * [List Documents](./lib/playground.rb#L148)
-    * [Delete Document](./lib/playground.rb#L157)
-    * [Delete Collection](./lib/playground.rb#L120)
+    * Create Collection
+    * List Collections
+    * Add Document
+    * List Documents
+    * Delete Document
+    * Delete Collection
 
 - Storage
-    * [Create Bucket](./lib/playground.rb#L169)
-    * [Upload File](./lib/playground.rb#L183)
-    * [List Files](./lib/playground.rb#L198)
-    * [Delete File](./lib/playground.rb#L207)
+    * Create Bucket
+    * List Buckets
+    * Upload File
+    * List Files
+    * Delete File
+    * Delete Bucket
 
 - Users
-    * [Create User](./lib/playground.rb#L13)
-    * [List User](./lib/playground.rb#L29)
-    * [Delete User](./lib/playground.rb#L38)
+    * Create User
+    * List Users
+    * Delete User
 
 - Functions
-    * [Create Function](./lib/playground.rb#L229)
-    * [List Functions](./lib/playground.rb#L244)
-    * [Delete Function](./lib/playground.rb#L253)
+    * Create Function
+    * List Functions
+    * Delete Function
 
 ## Contributing
 
