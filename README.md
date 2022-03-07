@@ -5,19 +5,22 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 **Work in progress**
 
 ## System Requirements
-* A system with Python3 installed.
-* You have readily available Appwrite running instance (localhost in most cases).
-* Create a project in Appwrite instance using console.
-* Generate a secret key in the Appwrite instance using console.
+* A system with Python 3+ or Docker installed.
+* An Appwrite instance.
+* An Appwrite project created in the console.
+* An Appwrite API key created in the console.
 
 ### Installation
 1. Clone this repository.
-2. cd into to repository.
-3. Open the app.py file found in the root of the cloned repository.
-4. Copy the project_id, endpoint, secret key from your Appwrite Console.
+2. `cd` into to repository.
+3. Open the playground.py file found in the root of the cloned repository.
 4. Update project_id, endpoint, secret key by copied from the console in app.py file where stated.
-5. Install dependencies using pip `pip install appwrite`
-5. Execute the command `python app.py`
+5. Run the playground:
+    - Python
+        - Install dependencies using pip `pip install -r requirements.txt`
+        - Execute the command `python playground.py`
+    - Docker
+        - Execute the command `docker compose up`
 6. You will see the JSON response in the console.
 
 ### API Covered in Playground.
@@ -25,11 +28,18 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 * List Collection
 * Add Document
 * List Documents
+* Delete Document
+* Delete Collection
+* Create Bucket
 * Upload File
 * List Files
 * Delete File
 * Create User
 * List User
+* Delete User
+* Create Function
+* List Functions
+* Delete Function
 
 ## Contributing
 

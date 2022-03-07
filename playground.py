@@ -28,6 +28,7 @@ collection_id = None
 user_id = None
 bucket_id = None
 file_id = None
+document_id = None
 
 # API Calls
 #   - api.create_collection
@@ -115,9 +116,7 @@ def list_collection():
     database = Database(client)
     p("Running List Collection API")
     response = database.list_collections()
-    collection = response['collections'][0]
-    print(collection)
-
+    print(response)
 
 def get_account():
     account = Account(client)
@@ -127,7 +126,7 @@ def get_account():
 
 
 def add_doc():
-    global collection_id
+    global collection_id, document_id
     database = Database(client)
     p("Running Add Document API")
     response = database.create_document(
@@ -142,12 +141,23 @@ def add_doc():
         read=['role:all'],
         write=['role:all']
     )
+    document_id = response['$id']
     print(response)
 
 def list_doc():
     database = Database(client)
     p("Running List Document API")
     response = database.list_documents(collection_id)
+    print(response)
+
+def delete_doc():
+    global document_id
+    database = Database(client)
+    p("Running Delete Collection API")
+    response = database.delete_document(
+        collection_id,
+        document_id
+    )
     print(response)
 
 def delete_collection():
@@ -262,6 +272,7 @@ def run_all_tasks():
     list_collection()
     add_doc()
     list_doc()
+    delete_doc()
     delete_collection()
 
     create_bucket()
