@@ -156,6 +156,12 @@ def create_bucket():
     bucket_id = response['$id']
     print(response)
 
+def list_buckets():
+    storage = Storage(client)
+    p("Running List Buckets API")
+    response = storage.list_buckets()
+    print(response)
+
 def upload_file():
     global file_id
     storage = Storage(client)
@@ -167,7 +173,6 @@ def upload_file():
     )
     file_id = response['$id']
     print(response)
-
 
 def list_files():
     global bucket_id
@@ -254,6 +259,7 @@ def run_all_tasks():
 
     # Storage
     create_bucket()
+    list_buckets()
     upload_file()
     list_files()
     delete_file()
