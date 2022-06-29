@@ -4,10 +4,11 @@ from sys import maxsize
 
 from appwrite.client import Client
 from appwrite.services.users import Users
-from appwrite.services.database import Database
+from appwrite.services.databases import Databases
 from appwrite.services.storage import Storage
 from appwrite.services.account import Account
 from appwrite.services.functions import Functions
+from appwrite.input_file import InputFile
 
 # Helper method to print green colored output.
 def p(info):
@@ -22,6 +23,7 @@ client.set_key('YOU_API_KEY')
 client.set_self_signed()
 # client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
+database_id = None
 collection_id = None
 document_id = None
 user_id = None
@@ -29,11 +31,21 @@ bucket_id = None
 file_id = None
 document_id = None
 
+def create_database():
+    global database_id
+    databases = Databases(client, 'moviesDB')
+    p("Running Create Database API")
+    response = databases.create(
+        name='Movies',
+    )
+    database_id = response['$id']
+    print(response)
+
 def create_collection():
-    global collection_id
-    database = Database(client)
-    p("Running Create Collection API")
-    response = database.create_collection(
+    global collection_id, database_id
+    databases = Databases(client, database_id)
+    p("Running Create Database API")
+    response = databases.create_collection(
         collection_id='movies',
         name='Movies',
         permission='document',
@@ -42,14 +54,14 @@ def create_collection():
     )
     collection_id = response['$id']
     print(response)
-    response = database.create_string_attribute(
+    response = databases.create_string_attribute(
         collection_id,
         key='name',
         size=255,
         required=True,
     )
     print(response)
-    response = database.create_integer_attribute(
+    response = databases.create_integer_attribute(
         collection_id,
         key='release_year',
         required=True,
@@ -57,7 +69,7 @@ def create_collection():
         max=9999
     )
     print(response)
-    response = database.create_float_attribute(
+    response = databases.create_float_attribute(
         collection_id,
         key='rating',
         required=True,
@@ -65,13 +77,13 @@ def create_collection():
         max=99.99
     )
     print(response)
-    response = database.create_boolean_attribute(
+    response = databases.create_boolean_attribute(
         collection_id,
         key='kids',
         required=True
     )
     print(response)
-    response = database.create_email_attribute(
+    response = databases.create_email_attribute(
         collection_id,
         key='email',
         required=False,
@@ -80,7 +92,7 @@ def create_collection():
     print(response)
     # Wait for attributes to be created
     sleep(2)
-    response = database.create_index(
+    response = databases.create_index(
         collection_id,
         key='name_email_idx',
         type="fulltext",
@@ -89,9 +101,10 @@ def create_collection():
     print(response)
 
 def list_collections():
-    database = Database(client)
+    global database_id
+    databases = Databases(client, database_id)
     p("Running List Collection API")
-    response = database.list_collections()
+    response = databases.list_collections()
     print(response)
 
 def get_account():
@@ -102,10 +115,10 @@ def get_account():
 
 
 def add_doc():
-    global collection_id, document_id
-    database = Database(client)
+    global database_id, collection_id, document_id
+    databases = Databases(client, database_id)
     p("Running Add Document API")
-    response = database.create_document(
+    response = databases.create_document(
         collection_id,
         document_id='unique()',
         data={
@@ -121,27 +134,34 @@ def add_doc():
     print(response)
 
 def list_doc():
-    global collection_id
-    database = Database(client)
+    global database_id, collection_id
+    databases = Databases(client, database_id)
     p("Running List Document API")
-    response = database.list_documents(collection_id)
+    response = databases.list_documents(collection_id)
     print(response)
 
 def delete_doc():
-    global document_id
-    database = Database(client)
+    global database_id, collection_id, document_id
+    databases = Databases(client, database_id)
     p("Running Delete Collection API")
-    response = database.delete_document(
+    response = databases.delete_document(
         collection_id,
         document_id
     )
     print(response)
 
 def delete_collection():
-    global collection_id
-    database = Database(client)
+    global database_id, collection_id
+    databases = Databases(client, database_id)
     p("Running Delete Collection API")
-    response = database.delete_collection(collection_id)
+    response = databases.delete_collection(collection_id)
+    print(response)
+
+def delete_database():
+    global database_id
+    databases = Databases(client, database_id)
+    p("Running Delete Database API")
+    response = databases.delete()
     print(response)
 
 def create_bucket():
@@ -169,7 +189,7 @@ def upload_file():
     response = storage.create_file(
         bucket_id,
         file_id='unique()',
-        file="./resources/nature.jpg",
+        file=InputFile.fromPath("./resources/nature.jpg"),
     )
     file_id = response['$id']
     print(response)
@@ -249,13 +269,15 @@ def delete_function():
 
 def run_all_tasks():
 
-    # Database
+    # Databases
+    create_database()
     create_collection()
     list_collections()
     add_doc()
     list_doc()
     delete_doc()
     delete_collection()
+    delete_database()
 
     # Storage
     create_bucket()
