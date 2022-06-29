@@ -189,7 +189,7 @@ def upload_file():
     response = storage.create_file(
         bucket_id,
         file_id='unique()',
-        file=InputFile.fromPath("./resources/nature.jpg"),
+        file=InputFile.from_path("./resources/nature.jpg"),
     )
     file_id = response['$id']
     print(response)
