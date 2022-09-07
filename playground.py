@@ -11,6 +11,7 @@ from appwrite.services.functions import Functions
 from appwrite.input_file import InputFile
 from appwrite.permission import Permission
 from appwrite.role import Role
+from appwrite.id import ID
 
 # Helper method to print green colored output.
 def p(info):
@@ -43,7 +44,7 @@ def create_database():
 
     p("Running Create Database API")
     response = databases.create(
-        database_id='unique()',
+        database_id=ID.unique(),
         name='Movies',
     )
     database_id = response['$id']
@@ -55,7 +56,7 @@ def create_collection():
     p("Running Create Database API")
     response = databases.create_collection(
         database_id,
-        collection_id='unique()',
+        collection_id=ID.unique(),
         name='Movies',
         document_security=True,
         permissions=[
@@ -146,7 +147,7 @@ def add_doc():
     response = databases.create_document(
         database_id,
         collection_id,
-        document_id='unique()',
+        document_id=ID.unique(),
         data={
             'name': "Spider Man",
             'release_year': 1920,
@@ -197,7 +198,7 @@ def create_bucket():
 
     p("Running Create Bucket API")
     response = storage.create_bucket(
-        bucket_id='unique()',
+        bucket_id=ID.unique(),
         name='awesome bucket',
         file_security=True,
         permissions=[
@@ -221,7 +222,7 @@ def upload_file():
     p("Running Upload File API")
     response = storage.create_file(
         bucket_id,
-        file_id='unique()',
+        file_id=ID.unique(),
         file=InputFile.from_path("./resources/nature.jpg"),
     )
     file_id = response['$id']
@@ -248,7 +249,7 @@ def create_user():
     name = str(randrange(1, maxsize))
     p("Running Create User API")
     response = users.create(
-        user_id='unique()',
+        user_id=ID.unique(),
         email=f'{name}@test.com',
         password=f'{name}@123',
         name=name
@@ -271,7 +272,7 @@ def create_function():
 
     p("Running Create Function API")
     response = functions.create(
-        function_id='unique()',
+        function_id=ID.unique(),
         name='Test Function',
         execute=[Role.any()],
         runtime='python-3.9',
