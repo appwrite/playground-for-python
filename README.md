@@ -12,7 +12,7 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 
 ### Installation
 1. Clone this repository.
-2. `cd` into to repository.
+2. `cd` into the repository.
 3. Open the playground.py file found in the root of the cloned repository.
 4. Copy Project ID, endpoint and API key from Appwrite console into `playground.py`
 5. Run the playground:
@@ -25,7 +25,7 @@ Appwrite playground is a simple way to explore the Appwrite API & Appwrite Pytho
 
 ### API's Covered
 
-- Databse
+- Database
     * Create Collection
     * List Collections
     * Add Document
