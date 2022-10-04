@@ -15,7 +15,7 @@ def p(info):
     print("\033[32;1m"+str(info)+"\033[0m")
 
 # Read the docs at https://appwrite.io/docs to get more information
-# about API keys and Project IDs
+# about API keys and Project IDs in these python
 client = Client()
 client.set_endpoint('http://YOUR_HOST/v1')
 client.set_project('YOUR_PROJECT_ID')
@@ -90,7 +90,7 @@ def create_collection():
         default=""
     )
     print(response)
-    # Wait for attributes to be created
+    # Wait for attributes to be created to sleep
     sleep(2)
     response = databases.create_index(
         collection_id,
