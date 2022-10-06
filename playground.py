@@ -32,6 +32,9 @@ file_id = None
 document_id = None
 
 def create_database():
+    """
+    It creates a database called 'Movies' in the Azure Cosmos DB account
+    """
     global database_id
     databases = Databases(client, 'moviesDB')
     p("Running Create Database API")
@@ -42,6 +45,9 @@ def create_database():
     print(response)
 
 def create_collection():
+    """
+    Create a collection called `movies` with a few attributes and an index
+    """
     global collection_id, database_id
     databases = Databases(client, database_id)
     p("Running Create Database API")
@@ -101,6 +107,9 @@ def create_collection():
     print(response)
 
 def list_collections():
+    """
+    This function lists all the collections in the database
+    """
     global database_id
     databases = Databases(client, database_id)
     p("Running List Collection API")
@@ -108,6 +117,9 @@ def list_collections():
     print(response)
 
 def get_account():
+    """
+    > This function gets the account information for the account associated with the API key
+    """
     account = Account(client)
     p("Running Get Account API");
     response = account.get()
@@ -115,6 +127,9 @@ def get_account():
 
 
 def add_doc():
+    """
+    > Create a document with the given data and permissions
+    """
     global database_id, collection_id, document_id
     databases = Databases(client, database_id)
     p("Running Add Document API")
@@ -134,6 +149,9 @@ def add_doc():
     print(response)
 
 def list_doc():
+    """
+    > This function lists all documents in a collection
+    """
     global database_id, collection_id
     databases = Databases(client, database_id)
     p("Running List Document API")
@@ -141,6 +159,9 @@ def list_doc():
     print(response)
 
 def delete_doc():
+    """
+    Delete a document from a collection
+    """
     global database_id, collection_id, document_id
     databases = Databases(client, database_id)
     p("Running Delete Collection API")
@@ -151,6 +172,9 @@ def delete_doc():
     print(response)
 
 def delete_collection():
+    """
+    > This function deletes the collection with the specified id
+    """
     global database_id, collection_id
     databases = Databases(client, database_id)
     p("Running Delete Collection API")
@@ -158,6 +182,9 @@ def delete_collection():
     print(response)
 
 def delete_database():
+    """
+    This function deletes the database that was created in the previous function
+    """
     global database_id
     databases = Databases(client, database_id)
     p("Running Delete Database API")
@@ -165,6 +192,9 @@ def delete_database():
     print(response)
 
 def create_bucket():
+    """
+    `create_bucket()` creates a bucket with the name `awesome bucket` and the permission `file`
+    """
     global bucket_id
     storage = Storage(client)
     p("Running Create Bucket API")
@@ -177,12 +207,18 @@ def create_bucket():
     print(response)
 
 def list_buckets():
+    """
+    > This function lists all the buckets in the project
+    """
     storage = Storage(client)
     p("Running List Buckets API")
     response = storage.list_buckets()
     print(response)
 
 def upload_file():
+    """
+    Uploads a file to the bucket.
+    """
     global file_id
     storage = Storage(client)
     p("Running Upload File API")
@@ -195,6 +231,9 @@ def upload_file():
     print(response)
 
 def list_files():
+    """
+    > List all files in a bucket
+    """
     global bucket_id
     storage = Storage(client)
     p("Running List Files API")
@@ -202,6 +241,9 @@ def list_files():
     print(response)
 
 def delete_file():
+    """
+    It deletes the file with the given file_id from the bucket with the given bucket_id.
+    """
     global file_id
     storage = Storage(client)
     p("Running Delete File API")
@@ -209,12 +251,18 @@ def delete_file():
     print(response)
 
 def delete_bucket():
+    """
+    > Delete a bucket
+    """
     storage = Storage(client)
     p("Running Delete Bucket API")
     response = storage.delete_bucket(bucket_id)
     print(response)
 
 def create_user():
+    """
+    > Create a user with a random name and email address
+    """
     global user_id
     users = Users(client)
     name = str(randrange(1, maxsize))
@@ -229,12 +277,18 @@ def create_user():
     print(response)
 
 def list_user():
+    """
+    `users.list()`
+    """
     users = Users(client)
     p("Running List User API")
     response = users.list()
     print(response)
 
 def delete_user():
+    """
+    It deletes the user with the user_id that was created in the previous function.
+    """
     global user_id
     users = Users(client)
     p("Running Delete User API")
@@ -242,6 +296,9 @@ def delete_user():
     print(response)
 
 def create_function():
+    """
+    Create a function called 'unique()' that takes no arguments and returns a unique value
+    """
     global function_id
     functions = Functions(client)
     p("Running Create Function API")
@@ -255,12 +312,18 @@ def create_function():
     print(response)
 
 def list_function():
+    """
+    It lists all the functions in the account.
+    """
     functions = Functions(client)
     p("Running List Function API")
     response = functions.list()
     print(response)
 
 def delete_function():
+    """
+    > Delete a function
+    """
     global function_id
     functions = Functions(client)
     p("Running Delete Function API")
@@ -299,5 +362,6 @@ def run_all_tasks():
     delete_function()
 
 if __name__ == "__main__":
+# Calling the function `run_all_tasks()` and printing the message `Successfully ran playground!`
     run_all_tasks()
     p("Successfully ran playground!")
