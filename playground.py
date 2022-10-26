@@ -53,7 +53,7 @@ def create_database():
 def create_collection():
     global collection_id
 
-    p("Running Create Database API")
+    p("Running Create Collection API")
     response = databases.create_collection(
         database_id,
         collection_id=ID.unique(),
