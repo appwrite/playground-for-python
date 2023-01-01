@@ -15,16 +15,16 @@ from appwrite.id import ID
 
 # Helper method to print green colored output.
 def p(info):
-    print("\033[32;1m"+str(info)+"\033[0m")
+    print(f"\033[32;1m{info}\033[0m")
 
 # Read the docs at https://appwrite.io/docs to get more information
 # about API keys and Project IDs
 client = Client()
-client.set_endpoint('http://YOUR_HOST/v1')
-client.set_project('YOUR_PROJECT_ID')
-client.set_key('YOU_API_KEY')
+client.set_endpoint("http://YOUR_HOST/v1")
+client.set_project("YOUR_PROJECT_ID")
+client.set_key("YOU_API_KEY")
 client.set_self_signed()
-# client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
+# client.set_jwt("JWT") # Use this to authenticate with JWT instead of API_KEY
 
 databases = Databases(client)
 storage = Storage(client)
@@ -45,9 +45,9 @@ def create_database():
     p("Running Create Database API")
     response = databases.create(
         database_id=ID.unique(),
-        name='Movies',
+        name="Movies",
     )
-    database_id = response['$id']
+    database_id = response["$id"]
     print(response)
 
 def create_collection():
@@ -57,7 +57,7 @@ def create_collection():
     response = databases.create_collection(
         database_id,
         collection_id=ID.unique(),
-        name='Movies',
+        name="Movies",
         document_security=True,
         permissions=[
             Permission.read(Role.any()),
@@ -67,13 +67,13 @@ def create_collection():
         ]
     )
 
-    collection_id = response['$id']
+    collection_id = response["$id"]
     print(response)
 
     response = databases.create_string_attribute(
         database_id,
         collection_id,
-        key='name',
+        key="name",
         size=255,
         required=True,
     )
@@ -82,7 +82,7 @@ def create_collection():
     response = databases.create_integer_attribute(
         database_id,
         collection_id,
-        key='release_year',
+        key="release_year",
         required=True,
         min=0,
         max=9999
@@ -92,7 +92,7 @@ def create_collection():
     response = databases.create_float_attribute(
         database_id,
         collection_id,
-        key='rating',
+        key="rating",
         required=True,
         min=0.0,
         max=99.99
@@ -102,7 +102,7 @@ def create_collection():
     response = databases.create_boolean_attribute(
         database_id,
         collection_id,
-        key='kids',
+        key="kids",
         required=True
     )
     print(response)
@@ -110,7 +110,7 @@ def create_collection():
     response = databases.create_email_attribute(
         database_id,
         collection_id,
-        key='email',
+        key="email",
         required=False,
         default=""
     )
@@ -122,9 +122,9 @@ def create_collection():
     response = databases.create_index(
         database_id,
         collection_id,
-        key='name_email_idx',
+        key="name_email_idx",
         type="fulltext",
-        attributes=['name', 'email']
+        attributes=["name", "email"]
     )
     print(response)
 
@@ -149,10 +149,10 @@ def add_doc():
         collection_id,
         document_id=ID.unique(),
         data={
-            'name': "Spider Man",
-            'release_year': 1920,
-            'rating': 98.5,
-            'kids': False
+            "name": "Spider Man",
+            "release_year": 1920,
+            "rating": 98.5,
+            "kids": False
         },
         permissions=[
             Permission.read(Role.users()),
@@ -160,7 +160,7 @@ def add_doc():
             Permission.delete(Role.users()),
         ]
     )
-    document_id = response['$id']
+    document_id = response["$id"]
     print(response)
 
 def list_doc():
@@ -199,7 +199,7 @@ def create_bucket():
     p("Running Create Bucket API")
     response = storage.create_bucket(
         bucket_id=ID.unique(),
-        name='awesome bucket',
+        name="awesome bucket",
         file_security=True,
         permissions=[
             Permission.read(Role.any()),
@@ -208,7 +208,7 @@ def create_bucket():
             Permission.delete(Role.users()),
         ]
     )
-    bucket_id = response['$id']
+    bucket_id = response["$id"]
     print(response)
 
 def list_buckets():
@@ -225,7 +225,7 @@ def upload_file():
         file_id=ID.unique(),
         file=InputFile.from_path("./resources/nature.jpg"),
     )
-    file_id = response['$id']
+    file_id = response["$id"]
     print(response)
 
 def list_files():
@@ -250,11 +250,11 @@ def create_user():
     p("Running Create User API")
     response = users.create(
         user_id=ID.unique(),
-        email=f'{name}@test.com',
-        password=f'{name}@123',
+        email=f"{name}@test.com",
+        password=f"{name}@123",
         name=name
     )
-    user_id = response['$id']
+    user_id = response["$id"]
     print(response)
 
 def list_user():
@@ -273,11 +273,11 @@ def create_function():
     p("Running Create Function API")
     response = functions.create(
         function_id=ID.unique(),
-        name='Test Function',
+        name="Test Function",
         execute=[Role.any()],
-        runtime='python-3.9',
+        runtime="python-3.9",
     )
-    function_id = response['$id']
+    function_id = response["$id"]
     print(response)
 
 def list_function():
