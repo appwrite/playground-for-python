@@ -20,10 +20,10 @@ def p(info):
 # Read the docs at https://appwrite.io/docs to get more information
 # about API keys and Project IDs
 client = Client()
-client.set_endpoint('http://YOUR_HOST/v1')
-client.set_project('YOUR_PROJECT_ID')
-client.set_key('YOU_API_KEY')
-client.set_self_signed()
+client.endpoint = 'http://HOSTNAME/v1'
+client.project = 'project_ID'
+client.key = 'secret_key'
+client.self_signed=False
 # client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
 databases = Databases(client)
@@ -31,13 +31,13 @@ storage = Storage(client)
 functions = Functions(client)
 users = Users(client)
 
-database_id = None
-collection_id = None
-document_id = None
-user_id = None
-bucket_id = None
-file_id = None
-document_id = None
+database_id = 'database_id'
+collection_id = 'collection_id'
+document_id = 'document_id'
+user_id = 'user_id'
+bucket_id = 'bucket_id'
+file_id = 'file_id'
+# document_id = None
 
 def create_database():
     global database_id
