@@ -14,10 +14,6 @@ from appwrite.permission import Permission
 from appwrite.role import Role
 from appwrite.id import ID
 
-# Helper method to print green colored output.
-def p(info):
-    print("\033[32;1m"+str(info)+"\033[0m")
-
 # Read the docs at https://appwrite.io/docs to get more information
 # about API keys and Project IDs
 client = Client()
