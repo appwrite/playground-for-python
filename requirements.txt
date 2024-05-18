@@ -1,2 +1,2 @@
 # For development SDK: git+https://github.com/appwrite/sdk-for-python@dev
-git+https://github.com/appwrite/sdk-for-python@1.0.0
+git+https://github.com/appwrite/sdk-for-python@1.0.0rich==13.7.1

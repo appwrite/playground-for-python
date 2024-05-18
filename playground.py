@@ -1,6 +1,7 @@
 from time import sleep
 from random import randrange
 from sys import maxsize
+from rich import print as rprint
 
 from appwrite.client import Client
 from appwrite.services.users import Users
@@ -42,7 +43,7 @@ document_id = None
 def create_database():
     global database_id
 
-    p("Running Create Database API")
+    rprint("[orange1]Running Create Database API...")
     response = databases.create(
         database_id=ID.unique(),
         name='Movies',
@@ -53,7 +54,7 @@ def create_database():
 def create_collection():
     global collection_id
 
-    p("Running Create Collection API")
+    rprint("[orange1]Running Create Collection API...")
     response = databases.create_collection(
         database_id,
         collection_id=ID.unique(),
@@ -129,13 +130,13 @@ def create_collection():
     print(response)
 
 def list_collections():
-    p("Running List Collection API")
+    rprint("[orange1]Running List Collection API...")
     response = databases.list_collections(database_id)
     print(response)
 
 def get_account():
     account = Account(client)
-    p("Running Get Account API");
+    rprint("[orange1]Running Get Account API...");
     response = account.get()
     print(response)
 
@@ -143,7 +144,7 @@ def get_account():
 def add_doc():
     global document_id
 
-    p("Running Add Document API")
+    rprint("[orange1]Running Add Document API")
     response = databases.create_document(
         database_id,
         collection_id,
@@ -164,7 +165,7 @@ def add_doc():
     print(response)
 
 def list_doc():
-    p("Running List Document API")
+    rprint("[orange1]Running List Document API...")
     response = databases.list_documents(
         database_id,
         collection_id
@@ -172,7 +173,7 @@ def list_doc():
     print(response)
 
 def delete_doc():
-    p("Running Delete Database API")
+    rprint("[red1]Running Delete Database API...")
     response = databases.delete_document(
         database_id,
         collection_id,
@@ -181,7 +182,7 @@ def delete_doc():
     print(response)
 
 def delete_collection():
-    p("Running Delete Collection API")
+    rprint("[red1]Running Delete Collection API...")
     response = databases.delete_collection(
         database_id,
         collection_id
@@ -189,14 +190,14 @@ def delete_collection():
     print(response)
 
 def delete_database():
-    p("Running Delete Database API")
+    rprint("[red1]Running Delete Database API...")
     response = databases.delete(database_id)
     print(response)
 
 def create_bucket():
     global bucket_id
 
-    p("Running Create Bucket API")
+    rprint("[orange1]Running Create Bucket API...")
     response = storage.create_bucket(
         bucket_id=ID.unique(),
         name='awesome bucket',
@@ -212,14 +213,14 @@ def create_bucket():
     print(response)
 
 def list_buckets():
-    p("Running List Buckets API")
+    rprint("[orange1]Running List Buckets API...")
     response = storage.list_buckets()
     print(response)
 
 def upload_file():
     global file_id
 
-    p("Running Upload File API")
+    rprint("[orange_red1]Running Upload File API...")
     response = storage.create_file(
         bucket_id,
         file_id=ID.unique(),
@@ -229,17 +230,17 @@ def upload_file():
     print(response)
 
 def list_files():
-    p("Running List Files API")
+    rprint("[orange_red1]Running List Files API...")
     response = storage.list_files(bucket_id)
     print(response)
 
 def delete_file():
-    p("Running Delete File API")
+    rprint("[orange_red1]Running Delete File API...")
     response = storage.delete_file(bucket_id, file_id)
     print(response)
 
 def delete_bucket():
-    p("Running Delete Bucket API")
+    rprint("[red1]Running Delete Bucket API...")
     response = storage.delete_bucket(bucket_id)
     print(response)
 
@@ -247,7 +248,7 @@ def create_user():
     global user_id
 
     name = str(randrange(1, maxsize))
-    p("Running Create User API")
+    rprint("[orange_red1]Running Create User API...")
     response = users.create(
         user_id=ID.unique(),
         email=f'{name}@test.com',
@@ -258,19 +259,19 @@ def create_user():
     print(response)
 
 def list_user():
-    p("Running List User API")
+    rprint("[orange_red1]Running List User API...")
     response = users.list()
     print(response)
 
 def delete_user():
-    p("Running Delete User API")
+    rprint("[red1]Running Delete User API...")
     response = users.delete(user_id)
     print(response)
 
 def create_function():
     global function_id
 
-    p("Running Create Function API")
+    rprint("[orange1]Running Create Function API...")
     response = functions.create(
         function_id=ID.unique(),
         name='Test Function',
@@ -281,12 +282,12 @@ def create_function():
     print(response)
 
 def list_function():
-    p("Running List Function API")
+    rprint("[orange_red1]Running List Function API...")
     response = functions.list()
     print(response)
 
 def delete_function():
-    p("Running Delete Function API")
+    rprint("[red1]Running Delete Function API...")
     response = functions.delete(function_id)
     print(response)
 
@@ -323,4 +324,4 @@ def run_all_tasks():
 
 if __name__ == "__main__":
     run_all_tasks()
-    p("Successfully ran playground!")
+    rprint("[bright_green]Successfully ran playground!...")
