@@ -40,6 +40,9 @@ user_id = None
 bucket_id = None
 file_id = None
 document_id = None
+function_id = None
+deployment_id = None
+execution_id = None
 
 
 def create_database():
@@ -283,6 +286,68 @@ def delete_function():
     print(response)
 
 
+def create_deployment():
+    global function_id
+    global deployment_id
+
+    p("Running Create Deployment API")
+    response = functions.create_deployment(
+        function_id,
+        code=InputFile.from_path("./resources/code.tar.gz"),
+        activate=True,
+        entrypoint="main.py",
+    )
+
+    deployment_id = response["$id"]
+    print(response)
+
+
+def list_deployments():
+    global function_id
+
+    p("Running List Deployments API")
+    response = functions.list_deployments(function_id)
+    print(response)
+
+
+def delete_deployment():
+    global function_id
+    global deployment_id
+
+    p("Running Delete Deployment API")
+    response = functions.delete_deployment(function_id, deployment_id)
+    print(response)
+
+
+def create_execution():
+    global function_id
+    global execution_id
+
+    p("Running Create Execution API")
+    response = functions.create_execution(function_id)
+
+    execution_id = response["$id"]
+
+    print(response)
+
+
+def list_executions():
+    global function_id
+
+    p("Running List Executions API")
+    response = functions.list_executions(function_id)
+    print(response)
+
+
+def delete_execution():
+    global function_id
+    global execution_id
+
+    p("Running Delete Execution API")
+    response = functions.delete_execution(function_id, execution_id)
+    print(response)
+
+
 def run_all_tasks():
 
     # Databases
@@ -312,6 +377,12 @@ def run_all_tasks():
     # Functions
     create_function()
     list_function()
+    create_deployment()
+    list_deployments()
+    create_execution()
+    list_executions()
+    delete_execution()
+    delete_deployment()
     delete_function()
 
 
