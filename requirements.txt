@@ -1,2 +1,1 @@
-# For development SDK: git+https://github.com/appwrite/sdk-for-python@dev
-git+https://github.com/appwrite/sdk-for-python@6.0.0-rc.1
+appwrite == 6.0.0
