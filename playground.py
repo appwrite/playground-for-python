@@ -21,11 +21,13 @@ def p(info):
 
 # Read the docs at https://appwrite.io/docs to get more information
 # about API keys and Project IDs
-client = Client()
-client.set_endpoint("http://YOUR_HOST/v1")
-client.set_project("YOUR_PROJECT_ID")
-client.set_key("YOU_API_KEY")
-client.set_self_signed()
+client = (client
+  .set_endpoint('https://cloud.appwrite.io/v1') # Appwrite cloud platform API Endpoint
+  .set_project('YOUR_PROJECT_ID') # Replace with your appwrite cloud project ID
+  .set_key('YOU_API_KEY') # Replace with your appwrite cloud project api key
+  .set_self_signed() # Use only on dev mode with a self-signed SSL cert
+)
+
 # client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
 
 databases = Databases(client)

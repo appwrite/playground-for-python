@@ -1,4 +1,5 @@
-FROM python:3.10-alpine
+FROM python:3.11.11-alpine
+
 WORKDIR /app
 RUN apk update && apk add git
 COPY requirements.txt requirements.txt
