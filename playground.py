@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from time import sleep
 from random import randrange
 from sys import maxsize
@@ -20,11 +22,9 @@ def p(info):
 # Read the docs at https://appwrite.io/docs to get more information
 # about API keys and Project IDs
 client = Client()
-client.set_endpoint('http://YOUR_HOST/v1')
-client.set_project('YOUR_PROJECT_ID')
-client.set_key('YOU_API_KEY')
-client.set_self_signed()
-# client.set_jwt('JWT') # Use this to authenticate with JWT instead of API_KEY
+client.set_endpoint('http://localhost/v1')
+client.set_project('playground')
+client.set_key('fff3b3caa94f9b9ab318c1bbf7038752f3a0780ad689b76e94ddb6c6da78ce3a0e25a8b9d31fe54a57a86ce24cd38ad91fbf9ffca70d54f364e65f9e0ae830319a46f01c81bb82371ca3da5409fd8224a61fc76a5ed3b5a476f56c2eaf85f9f2e627a4c1534bcaf5225b702d5150013c795acd888b46edca2878be40f4820cbf')
 
 databases = Databases(client)
 storage = Storage(client)
